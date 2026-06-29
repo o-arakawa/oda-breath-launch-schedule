@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>織田さん 呼吸法書籍ローンチスケジュール</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --muted: #62676f;
+      --line: #d8dde5;
+      --paper: #ffffff;
+      --soft: #f6f7f9;
+      --blue: #2059a8;
+      --blue-soft: #e9f1ff;
+      --red: #a83e32;
+      --red-soft: #faece9;
+      --green: #236b4c;
+      --green-soft: #e8f4ef;
+      --gold: #8a6a16;
+      --gold-soft: #fbf2d6;
+      --violet: #5d4d91;
+      --violet-soft: #eeebf8;
+      --radius: 8px;
+      --shadow: 0 12px 30px rgba(29, 35, 45, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #eef1f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
+      line-height: 1.65;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+    }
+
+    .top {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      gap: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 2.7vw, 34px);
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 21px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      margin-top: 12px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .summary {
+      display: grid;
+      gap: 10px;
+    }
+
+    .summary-item {
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius);
+      background: var(--soft);
+      padding: 12px 14px;
+    }
+
+    .summary-item:nth-child(2) {
+      border-left-color: var(--green);
+    }
+
+    .summary-item:nth-child(3) {
+      border-left-color: var(--red);
+    }
+
+    .summary-item:nth-child(4) {
+      border-left-color: var(--gold);
+    }
+
+    .summary-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .summary-value {
+      margin-top: 2px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .section {
+      margin-top: 22px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .decision {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--paper);
+      min-height: 178px;
+    }
+
+    .decision strong {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .decision p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .cf-track {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .cf-step {
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--green);
+      border-radius: var(--radius);
+      background: var(--green-soft);
+      padding: 12px;
+      min-height: 150px;
+    }
+
+    .cf-step:nth-child(2) {
+      border-top-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .cf-step:nth-child(3) {
+      border-top-color: var(--gold);
+      background: var(--gold-soft);
+    }
+
+    .cf-step:nth-child(4) {
+      border-top-color: var(--violet);
+      background: var(--violet-soft);
+    }
+
+    .cf-step:nth-child(5) {
+      border-top-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .date {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .cf-step .title {
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    .cf-step .body {
+      margin-top: 8px;
+      color: #3c4047;
+      font-size: 13px;
+    }
+
+    .timeline {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      min-width: 980px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 12px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f1f3f6;
+      color: #333942;
+      font-size: 13px;
+      z-index: 1;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .phase {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .phase.cf {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .phase.event {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .phase.book {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .phase.amazon {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .phase.vip {
+      background: var(--violet-soft);
+      color: var(--violet);
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .venue {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .venue-head {
+      padding: 14px 16px;
+      background: #f1f3f6;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .venue-head .place {
+      font-size: 18px;
+      font-weight: 850;
+    }
+
+    .venue-head .time {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .venue-body {
+      padding: 14px 16px;
+    }
+
+    .venue-body dl {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 8px 12px;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    dt {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    dd {
+      margin: 0;
+    }
+
+    .todo-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .todo {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--soft);
+      min-height: 150px;
+    }
+
+    .todo .owner {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    @media (max-width: 940px) {
+      .top,
+      .event-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .decision-grid,
+      .todo-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cf-track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 14px 10px 36px;
+      }
+
+      .top,
+      .section {
+        padding: 16px;
+      }
+
+      .decision-grid,
+      .todo-list,
+      .cf-track {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-note {
+        margin-top: 4px;
+        text-align: left;
+      }
+
+      .venue-body dl {
+        grid-template-columns: 72px minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="top" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">織田さん 呼吸法書籍ローンチ<span>スケジュール</span></h1>
+        <p class="lead">7月20日頃にクラファンを公開し、7月21日からAmazonキャンペーンを走らせ、8月31日の出版初動、9月18日の二会場イベントへつなげる流れです。今日のMTGでは「公開までの制作」「Amazon導線」「9/18の体制」を中心に決めます。</p>
+        <div class="badge-row" aria-label="主要日程">
+          <span class="badge">7/20 クラファン公開</span>
+          <span class="badge">7/21 Amazonキャンペーン開始</span>
+          <span class="badge">8/31 出版日</span>
+          <span class="badge">9/18 神田明神</span>
+          <span class="badge">9/18 パークハイアット東京</span>
+        </div>
+      </div>
+      <div class="summary" aria-label="重要ポイント">
+        <div class="summary-item">
+          <div class="summary-label">最初の山場</div>
+          <div class="summary-value">7/20 クラファン公開</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">販売導線の開始</div>
+          <div class="summary-value">7/21 Amazonキャンペーン</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">販売の山場</div>
+          <div class="summary-value">8/31 呼吸法書籍 出版</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">第2ピーク</div>
+          <div class="summary-value">9/18 二会場イベント</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="decisions-title">
+      <div class="section-head">
+        <h2 id="decisions-title">今日のMTGで決めること</h2>
+        <p class="section-note">ここが決まると、7/20公開に向けて制作へ入れます。</p>
+      </div>
+      <div class="decision-grid">
+        <article class="decision">
+          <span class="tag">最優先</span>
+          <h3>クラファン公開条件</h3>
+          <p>目的、目標金額、支援金用途、リターン、公開日を確定。公開日は7/20目安。</p>
+        </article>
+        <article class="decision">
+          <span class="tag">最優先</span>
+          <h3>Amazonキャンペーン条件</h3>
+          <p>7/21開始。対象期間、購入/予約導線、特典、申請フォーム、告知文面を決める。</p>
+        </article>
+        <article class="decision">
+          <span class="tag">最優先</span>
+          <h3>ページ制作素材</h3>
+          <p>本文、画像、動画、FAQ、リターン説明、活動報告の初回ネタを揃える。</p>
+        </article>
+        <article class="decision">
+          <span class="tag">重要</span>
+          <h3>初動支援者</h3>
+          <p>公開初日に支援・投稿・紹介してくれる人を事前にリスト化する。</p>
+        </article>
+        <article class="decision">
+          <span class="tag">重要</span>
+          <h3>9/18との接続</h3>
+          <p>神田明神とパークハイアット東京で、クラファンをどう見せるか決める。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cf-title">
+      <div class="section-head">
+        <h2 id="cf-title">7/20クラファン公開・7/21Amazon開始までの最短スケジュール</h2>
+        <p class="section-note">7/20公開と7/21開始から逆算した、最低限必要な流れです。</p>
+      </div>
+      <div class="cf-track">
+        <article class="cf-step">
+          <div class="date">6/29-7/3</div>
+          <div class="title">設計確定</div>
+          <p class="body">目的、目標金額、資金使途、リターン、公開日を決める。</p>
+        </article>
+        <article class="cf-step">
+          <div class="date">7/4-7/9</div>
+          <div class="title">ページ制作</div>
+          <p class="body">本文、画像、動画、FAQ、リターン説明を作る。</p>
+        </article>
+        <article class="cf-step">
+          <div class="date">7/10-7/14</div>
+          <div class="title">審査・準備</div>
+          <p class="body">申請、告知文、SNS/LINE文面、初動支援者リストを準備。</p>
+        </article>
+        <article class="cf-step">
+          <div class="date">7/15-7/19</div>
+          <div class="title">事前告知</div>
+          <p class="body">応援団へ個別連絡。公開初日の支援・投稿を依頼。</p>
+        </article>
+        <article class="cf-step">
+          <div class="date">7/20</div>
+          <div class="title">公開</div>
+          <p class="body">LINE、メルマガ、SNSで一斉告知。初日の山を作る。</p>
+        </article>
+        <article class="cf-step">
+          <div class="date">7/21</div>
+          <div class="title">Amazon開始</div>
+          <p class="body">Amazonキャンペーン告知、特典申請、購入/予約導線を動かす。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="schedule-title">
+      <div class="section-head">
+        <h2 id="schedule-title">全体スケジュール</h2>
+        <p class="section-note">クラファン、出版、イベントを一本の流れにしています。</p>
+      </div>
+      <div class="timeline">
+        <table>
+          <thead>
+            <tr>
+              <th>時期</th>
+              <th>フェーズ</th>
+              <th>やること</th>
+              <th>目的</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6/29-7/3</td>
+              <td><span class="phase cf">クラファン設計</span></td>
+              <td>目的、目標金額、支援金用途、リターン、公開日を決める。</td>
+              <td>7/20公開に間に合わせる。</td>
+            </tr>
+            <tr>
+              <td>7/4-7/9</td>
+              <td><span class="phase cf">ページ制作</span></td>
+              <td>本文、画像、動画、リターン説明、FAQを作る。</td>
+              <td>審査・告知できる状態にする。</td>
+            </tr>
+            <tr>
+              <td>7/10-7/14</td>
+              <td><span class="phase cf">審査・準備</span></td>
+              <td>CAMPFIRE申請、初動支援者リスト、告知文、LINE/SNS文面を準備。</td>
+              <td>公開初日に動ける人を固める。</td>
+            </tr>
+            <tr>
+              <td>7/15-7/19</td>
+              <td><span class="phase cf">事前告知</span></td>
+              <td>応援団へ個別連絡、公開予告、初日支援依頼。</td>
+              <td>公開前に熱量を作る。</td>
+            </tr>
+            <tr>
+              <td>7/20</td>
+              <td><span class="phase cf">クラファン公開</span></td>
+              <td>公開、LINE/メルマガ/SNS一斉告知、支援依頼。</td>
+              <td>初日で支援の山を作る。</td>
+            </tr>
+            <tr>
+              <td>7/21</td>
+              <td><span class="phase amazon">Amazon開始</span></td>
+              <td>Amazonキャンペーン開始。購入/予約導線、特典申請フォーム、告知投稿を動かす。</td>
+              <td>出版日前から販売導線と見込み読者を作る。</td>
+            </tr>
+            <tr>
+              <td>7/20-7/23</td>
+              <td><span class="phase event">宮古島連動</span></td>
+              <td>バカになる祭りで現地投稿、動画、体験談、活動報告を出し、クラファンとAmazon導線へつなげる。</td>
+              <td>クラファンの物語性とAmazonキャンペーンの説得力を強化する。</td>
+            </tr>
+            <tr>
+              <td>7/24-7/31</td>
+              <td><span class="phase cf">初動フォロー</span></td>
+              <td>支援者御礼、未支援者フォロー、活動報告、Amazonキャンペーン参加者フォロー。</td>
+              <td>クラファン目標の30-50%到達とAmazon導線の定着を狙う。</td>
+            </tr>
+            <tr>
+              <td>8/1</td>
+              <td><span class="phase event">決起会</span></td>
+              <td>書籍プロモーション決起会、誕生日会。クラファン中間盛り上げ。</td>
+              <td>支援者・販売協力者を増やす。</td>
+            </tr>
+            <tr>
+              <td>8/2</td>
+              <td><span class="phase event">体験発表会</span></td>
+              <td>体験談回収、推薦コメント、SNS素材化。</td>
+              <td>信頼材料を増やす。</td>
+            </tr>
+            <tr>
+              <td>8/3-8/16</td>
+              <td><span class="phase cf">中盤強化</span></td>
+              <td>活動報告、対談ライブ、リターン紹介、応援投稿。</td>
+              <td>中だるみを防ぐ。</td>
+            </tr>
+            <tr>
+              <td>8/17-8/30</td>
+              <td><span class="phase book">出版前</span></td>
+              <td>8/31出版に向けてAmazonキャンペーン、クラファン、出版告知の導線を整理。</td>
+              <td>出版初動へ接続する。</td>
+            </tr>
+            <tr>
+              <td>8/31</td>
+              <td><span class="phase book">出版日</span></td>
+              <td>出版日当日のAmazon発売週キャンペーンを最大化。クラファン支援者にも購入/紹介を依頼。</td>
+              <td>出版初動を最大化する。</td>
+            </tr>
+            <tr>
+              <td>9/1-9/17</td>
+              <td><span class="phase event">イベント準備</span></td>
+              <td>神田明神集客、登壇者確定、パークハイアット50名招待。</td>
+              <td>第2ピークを作る。</td>
+            </tr>
+            <tr>
+              <td>9/18</td>
+              <td><span class="phase vip">二会場本番</span></td>
+              <td>神田明神で大規模イベント、パークハイアットで50名限定販売協力会。</td>
+              <td>認知拡大と販売協力者づくり。</td>
+            </tr>
+            <tr>
+              <td>9/19-9/30</td>
+              <td><span class="phase cf">ラストスパート</span></td>
+              <td>御礼、活動報告、支援者フォロー、販売協力者への素材配布。</td>
+              <td>最終支援・販売協力を取り切る。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="event-title">
+      <div class="section-head">
+        <h2 id="event-title">9/18 二会場イベントの役割</h2>
+        <p class="section-note">昼は広く、夜は濃く。目的を分けます。</p>
+      </div>
+      <div class="event-grid">
+        <article class="venue">
+          <div class="venue-head">
+            <div class="place">神田明神</div>
+            <div class="time">10:00-17:00 会場設備・撤去込み</div>
+          </div>
+          <div class="venue-body">
+            <dl>
+              <dt>対象</dt>
+              <dd>一般参加者、読者候補、著者、ゲスト、コミュニティ</dd>
+              <dt>目的</dt>
+              <dd>認知・権威・話題化</dd>
+              <dt>中身</dt>
+              <dd>セミナー、大物ゲスト対談、著者セッション、呼吸法ミニ実践</dd>
+              <dt>CTA</dt>
+              <dd>書籍購入、SNS投稿、LINE登録、クラファン支援</dd>
+            </dl>
+          </div>
+        </article>
+
+        <article class="venue">
+          <div class="venue-head">
+            <div class="place">パークハイアット東京</div>
+            <div class="time">17:00-22:00 会場設備・撤去込み</div>
+          </div>
+          <div class="venue-body">
+            <dl>
+              <dt>対象</dt>
+              <dd>50名限定。インフルエンサー、著者、販売協力者、法人紹介者</dd>
+              <dt>目的</dt>
+              <dd>販売協力ネットワーク化</dd>
+              <dt>中身</dt>
+              <dd>限定トーク、販売戦略共有、応援スピーチ、協力コミット</dd>
+              <dt>CTA</dt>
+              <dd>紹介投稿、ライブ対談、まとめ買い、法人紹介、販売協力登録</dd>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="todo-title">
+      <div class="section-head">
+        <h2 id="todo-title">直近7日以内のToDo</h2>
+        <p class="section-note">7/20公開に向けて、まずここを潰します。</p>
+      </div>
+      <div class="todo-list">
+        <article class="todo">
+          <h3>クラファン設計を確定</h3>
+          <p>目的、目標金額、支援金用途、リターン、公開日。</p>
+          <div class="owner">担当候補：織田さん / PMO</div>
+        </article>
+        <article class="todo">
+          <h3>Amazonキャンペーンを確定</h3>
+          <p>7/21開始。対象期間、特典、申請フォーム、告知文面、購入/予約導線。</p>
+          <div class="owner">担当候補：マーケ / CS</div>
+        </article>
+        <article class="todo">
+          <h3>ページ素材を集める</h3>
+          <p>本文、写真、動画、体験談、推薦コメント、FAQ。</p>
+          <div class="owner">担当候補：コピー / 動画 / デザイン</div>
+        </article>
+        <article class="todo">
+          <h3>初動支援者を固める</h3>
+          <p>公開初日に支援・投稿・紹介してくれる人をリスト化。</p>
+          <div class="owner">担当候補：コミュニティ / CS</div>
+        </article>
+        <article class="todo">
+          <h3>告知文面を作る</h3>
+          <p>LINE、メルマガ、SNS、個別依頼文を準備。</p>
+          <div class="owner">担当候補：マーケ / SNS</div>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer">作成日：2026/06/29　前提：クラファン7/20頃公開、Amazonキャンペーン7/21開始、8/31出版、9/18二会場イベント</p>
+  </main>
+</body>
+</html>
