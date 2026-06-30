@@ -389,6 +389,100 @@
       gap: 12px;
     }
 
+    .wbs-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .sheet-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .wbs-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .wbs-kpi {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--soft);
+      padding: 10px 12px;
+    }
+
+    .wbs-kpi span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .wbs-kpi strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .wbs-table table {
+      min-width: 1080px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 64px;
+      min-height: 28px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .status.todo {
+      background: #eef0f3;
+      color: #4d5560;
+    }
+
+    .status.doing {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .status.check {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .status.done {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .status.hold {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
     .todo {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -450,6 +544,14 @@
       .section-note {
         margin-top: 4px;
         text-align: left;
+      }
+
+      .wbs-actions {
+        display: block;
+      }
+
+      .sheet-link {
+        margin-top: 8px;
       }
 
       .venue-body dl {
@@ -682,6 +784,38 @@
       </div>
     </section>
 
+    <section class="section" aria-labelledby="wbs-title">
+      <div class="section-head">
+        <h2 id="wbs-title">スプレッドシート連動WBS</h2>
+        <p class="section-note">クラファンWBSの担当・状態・メモを反映します。</p>
+      </div>
+      <div class="wbs-actions">
+        <p id="wbs-meta">スプレッドシートから読み込み中です。</p>
+        <a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1N3Gdre99F4LqwxOXD-dS0EQB8pLIJJ0Dpjzkx2Av4LE/edit#gid=901006" target="_blank" rel="noopener">WBSを開く</a>
+      </div>
+      <div class="wbs-summary" id="wbs-summary" aria-live="polite"></div>
+      <div class="timeline wbs-table">
+        <table>
+          <thead>
+            <tr>
+              <th>期間</th>
+              <th>フェーズ</th>
+              <th>タスク</th>
+              <th>完了条件</th>
+              <th>担当</th>
+              <th>状態</th>
+              <th>メモ</th>
+            </tr>
+          </thead>
+          <tbody id="wbs-body">
+            <tr>
+              <td colspan="7">WBSを読み込み中です。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="event-title">
       <div class="section-head">
         <h2 id="event-title">9/18 二会場イベントの役割</h2>
@@ -764,5 +898,170 @@
 
     <p class="footer">作成日：2026/06/29　前提：クラファン7/20頃公開、Amazonキャンペーン7/21開始、8/31出版、9/18二会場イベント</p>
   </main>
+  <script>
+    (function () {
+      const sheetId = "1N3Gdre99F4LqwxOXD-dS0EQB8pLIJJ0Dpjzkx2Av4LE";
+      const sheetName = "クラファンWBS";
+      const callbackName = "renderCrowdfundingWbs";
+      const body = document.getElementById("wbs-body");
+      const meta = document.getElementById("wbs-meta");
+      const summary = document.getElementById("wbs-summary");
+      let script;
+      let didFinish = false;
+
+      window[callbackName] = function (response) {
+        didFinish = true;
+        try {
+          const rows = normalizeRows(response && response.table);
+          if (!rows.length) {
+            showMessage("WBSの行がまだ見つかりません。");
+            return;
+          }
+          renderSummary(rows);
+          body.innerHTML = rows.map(renderRow).join("");
+          meta.textContent = "最終読み込み：" + formatNow();
+        } catch (error) {
+          showMessage("WBSを読み込めませんでした。スプレッドシートの共有設定を確認してください。");
+        } finally {
+          cleanup();
+        }
+      };
+
+      const url = new URL("https://docs.google.com/spreadsheets/d/" + sheetId + "/gviz/tq");
+      url.searchParams.set("tqx", "responseHandler:" + callbackName);
+      url.searchParams.set("headers", "1");
+      url.searchParams.set("sheet", sheetName);
+      url.searchParams.set("range", "A4:G120");
+
+      script = document.createElement("script");
+      script.src = url.toString();
+      script.async = true;
+      script.onerror = function () {
+        if (!didFinish) {
+          showMessage("WBSを読み込めませんでした。スプレッドシートの共有設定を確認してください。");
+          cleanup();
+        }
+      };
+      document.head.appendChild(script);
+
+      window.setTimeout(function () {
+        if (!didFinish) {
+          showMessage("WBSの読み込みに時間がかかっています。ページを再読み込みしてください。");
+          cleanup();
+        }
+      }, 12000);
+
+      function normalizeRows(table) {
+        if (!table || !Array.isArray(table.cols) || !Array.isArray(table.rows)) {
+          return [];
+        }
+
+        const labels = table.cols.map(function (col) {
+          return col.label || col.id || "";
+        });
+
+        return table.rows.map(function (row) {
+          return labels.reduce(function (item, label, index) {
+            item[label] = cellText(row.c && row.c[index]);
+            return item;
+          }, {});
+        }).filter(function (row) {
+          return row["フェーズ"] && row["タスク"];
+        });
+      }
+
+      function cellText(cell) {
+        if (!cell) {
+          return "";
+        }
+        const value = cell.f || cell.v || "";
+        return String(value).trim();
+      }
+
+      function renderSummary(rows) {
+        const statusCounts = rows.reduce(function (counts, row) {
+          const status = row["状態"] || "未設定";
+          counts[status] = (counts[status] || 0) + 1;
+          return counts;
+        }, {});
+        const items = [
+          ["全タスク", rows.length],
+          ["未着手", statusCounts["未着手"] || 0],
+          ["進行中", statusCounts["進行中"] || 0],
+          ["要確認", statusCounts["要確認"] || 0],
+          ["完了", statusCounts["完了"] || 0]
+        ];
+
+        summary.innerHTML = items.map(function (item) {
+          return '<div class="wbs-kpi"><span>' + escapeHtml(item[0]) + '</span><strong>' + escapeHtml(item[1]) + '</strong></div>';
+        }).join("");
+      }
+
+      function renderRow(row) {
+        const status = row["状態"] || "未設定";
+        return "<tr>" +
+          "<td>" + formatCell(row["期間"]) + "</td>" +
+          '<td><span class="phase cf">' + escapeHtml(row["フェーズ"]) + "</span></td>" +
+          "<td>" + formatCell(row["タスク"]) + "</td>" +
+          "<td>" + formatCell(row["完了条件"]) + "</td>" +
+          "<td>" + formatCell(row["担当"]) + "</td>" +
+          '<td><span class="status ' + statusClass(status) + '">' + escapeHtml(status) + "</span></td>" +
+          "<td>" + formatCell(row["メモ"]) + "</td>" +
+          "</tr>";
+      }
+
+      function statusClass(status) {
+        return {
+          "未着手": "todo",
+          "進行中": "doing",
+          "要確認": "check",
+          "完了": "done",
+          "保留": "hold"
+        }[status] || "todo";
+      }
+
+      function formatCell(value) {
+        return escapeHtml(value || "").replace(/\n/g, "<br>");
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, function (char) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+          }[char];
+        });
+      }
+
+      function formatNow() {
+        return new Intl.DateTimeFormat("ja-JP", {
+          month: "numeric",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }).format(new Date());
+      }
+
+      function showMessage(message) {
+        body.innerHTML = '<tr><td colspan="7">' + escapeHtml(message) + "</td></tr>";
+        meta.textContent = message;
+        summary.innerHTML = "";
+      }
+
+      function cleanup() {
+        if (script && script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+        try {
+          delete window[callbackName];
+        } catch (error) {
+          window[callbackName] = undefined;
+        }
+      }
+    }());
+  </script>
 </body>
 </html>
